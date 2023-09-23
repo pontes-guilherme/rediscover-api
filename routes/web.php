@@ -14,5 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if (app()->isLocal()) {
+        return ['Laravel' => app()->version()];
+    } else {
+        abort(404);
+    }
 });

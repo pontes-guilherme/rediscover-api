@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('user_type', 20)->default(\App\enums\UserTypesEnum::CLIENT);
+            $table->string('user_type', 20)->default(\App\Enums\UserTypesEnum::CLIENT);
 
             $table->rememberToken();
             $table->timestamps();

@@ -23,6 +23,6 @@ jobs:
         with:
           SSHKEY: ${{ secrets.SSH_PRIVATE_KEY }}
       - name: Deploy with Envoy
-        run: php vendor/bin/envoy run deploy --server=main
+        run: envoy run deploy --server=main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

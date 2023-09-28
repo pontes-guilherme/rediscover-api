@@ -19,14 +19,11 @@ jobs:
           extension-csv: mbstring, bcmath
       - name: Composer install
         run: composer global require "laravel/envoy=~2.8"
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          name: id_rsa # optional
-          known_hosts: ${{ secrets.KNOWN_HOSTS }}
-          #config: ${{ secrets.CONFIG }} # ssh_config; optional
-          if_key_exists: replace # replace / ignore / fail; optional (defaults to fail)
-          run: ssh-keygen -R api.rediscoverapp.tech
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh/
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan ${{ vars.HOST }} >> ~/.ssh/known_hosts
       - name: Deploy with Envoy
         run: envoy run deploy --server=main

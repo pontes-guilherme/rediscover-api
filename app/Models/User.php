@@ -15,7 +15,10 @@ class User extends BaseUser implements \Illuminate\Contracts\Auth\Authenticatabl
 
     protected $hidden = [
         'password',
-        'remember_token'
+        'remember_token',
+        'github_id',
+        'github_token',
+        'github_refresh_token',
     ];
 
     protected $casts = [
@@ -30,6 +33,9 @@ class User extends BaseUser implements \Illuminate\Contracts\Auth\Authenticatabl
         'email_verified_at',
         'password',
         'user_type',
-        'remember_token'
+        'remember_token',
+        'github_id',
+        'github_token',
+        'github_refresh_token',
     ];
 }

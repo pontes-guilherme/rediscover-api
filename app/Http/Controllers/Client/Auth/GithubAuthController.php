@@ -30,11 +30,13 @@ class GithubAuthController extends BaseController
         ]);
     }
 
-    public function callback(Request $request): \Illuminate\Http\Response
+    public function callback(Request $request)
     {
-        $this->loginService->githubAuthCallback($request);
+        $token = $this->loginService->githubAuthCallback($request);
 
-        return response()->noContent();
+        return view('github-auth-callback', [
+            'token' => $token,
+        ]);
     }
 
     /**

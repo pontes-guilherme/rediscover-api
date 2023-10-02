@@ -53,6 +53,8 @@ class LoginService implements LoginServiceContract
 
             'password' => Hash::make(Str::random(32)),
         ]);
+
+        return $this->generateTokenForUser($user);
     }
 
     public function logout(): void

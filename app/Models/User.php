@@ -37,5 +37,6 @@ class User extends BaseUser implements \Illuminate\Contracts\Auth\Authenticatabl
         'github_id',
         'github_token',
         'github_refresh_token',
+        'github_profile_picture',
     ];
 }

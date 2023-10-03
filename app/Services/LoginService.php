@@ -50,7 +50,7 @@ class LoginService implements LoginServiceContract
             'email' => $githubUser->email,
             'github_token' => $githubUser->token,
             'github_refresh_token' => $githubUser->refreshToken,
-
+            'github_profile_picture' => $githubUser->getAvatar(),
             'password' => Hash::make(Str::random(32)),
         ]);
 

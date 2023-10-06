@@ -3,6 +3,8 @@
 use App\Http\Controllers\Client\Auth\GithubAuthController;
 use App\Http\Controllers\Client\GithubRepositoriesController;
 use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\Client\TagsController;
+use App\Http\Controllers\Client\TechnologiesController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -13,6 +15,14 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('github')->group(function () {
     Route::get('repository', [GithubRepositoriesController::class, 'get']);
+});
+
+Route::prefix('technologies')->group(function () {
+    Route::get('', [TechnologiesController::class, 'index']);
+});
+
+Route::prefix('tags')->group(function () {
+    Route::get('', [TagsController::class, 'index']);
 });
 
 Route::middleware('auth:sanctum')->group(function () {

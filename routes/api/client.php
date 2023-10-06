@@ -3,6 +3,7 @@
 use App\Http\Controllers\Client\Auth\GithubAuthController;
 use App\Http\Controllers\Client\GithubRepositoriesController;
 use App\Http\Controllers\Client\ProfileController;
+use App\Http\Controllers\Client\ProjectsController;
 use App\Http\Controllers\Client\TagsController;
 use App\Http\Controllers\Client\TechnologiesController;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +26,12 @@ Route::prefix('tags')->group(function () {
     Route::get('', [TagsController::class, 'index']);
 });
 
+Route::prefix('projects')->group(function () {
+    Route::post('', [ProjectsController::class, 'store']);
+});
+
 Route::middleware('auth:sanctum')->group(function () {
-    Route::prefix('profile')->group(function() {
+    Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'show']);
     });
 });

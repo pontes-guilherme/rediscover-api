@@ -40,6 +40,7 @@ class GithubService implements GithubServiceContract
             $lastContributors = $this->fetchRepoLastContributors($owner, $repo);
 
             return [
+                'id' => $basicInfo['id'],
                 'name' => $basicInfo['name'],
                 'description' => $basicInfo['description'],
                 'stargazers_count' => $basicInfo['stargazers_count'],

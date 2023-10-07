@@ -15,6 +15,7 @@ class GithubRepositoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'id' => $this['id'],
             'commits' => $this['commits'],
             'contributors' => $this['contributors'],
             'description' => $this['description'],

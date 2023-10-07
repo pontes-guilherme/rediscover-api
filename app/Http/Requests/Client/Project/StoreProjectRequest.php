@@ -23,7 +23,7 @@ class StoreProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'repository_id' => ['required', 'int'],
+            'repository_id' => ['required', 'int', 'unique:projects,repository_id'],
             'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'repository_url' => ['required', 'string', 'max:255'],

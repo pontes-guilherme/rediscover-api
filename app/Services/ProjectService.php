@@ -11,9 +11,23 @@ class ProjectService implements ProjectServiceContract
     {
         $project = Project::create($data);
 
-        $project->tags()->sync($data['tags']);
-        $project->technologies()->sync($data['technologies']);
+        $this->syncTags($project, $data['tags']);
+        $this->syncTechnologies($project, $data['technologies']);
 
         return $project;
+    }
+
+    private function syncTags(Project $project, array $tags): void
+    {
+        $project->tags()->sync(
+            collect($tags)->pluck('id')->toArray()
+        );
+    }
+
+    private function syncTechnologies(Project $project, array $technologies): void
+    {
+        $project->technologies()->sync(
+            collect($technologies)->pluck('id')->toArray()
+        );
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Contracts\Services\GithubServiceContract;
 use App\Http\Controllers\BaseController;
+use App\Http\Resources\GithubRepositoryResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class GithubRepositoriesController extends BaseController
     {
     }
 
-    public function get(Request $request): JsonResponse
+    public function get(Request $request): GithubRepositoryResource|JsonResponse
     {
         $url = $request->input('url');
 
@@ -31,6 +32,6 @@ class GithubRepositoriesController extends BaseController
             ], 400);
         }
 
-        return response()->json($repoInfo);
+        return GithubRepositoryResource::make($repoInfo);
     }
 }

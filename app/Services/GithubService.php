@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Contracts\Services\GithubServiceContract;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\RequestException;
+use Illuminate\Support\Facades\Cache;
 
 class GithubService implements GithubServiceContract
 {
@@ -19,29 +21,34 @@ class GithubService implements GithubServiceContract
     }
 
     /**
-     * @throws \Exception|GuzzleException
+     * @throws Exception
      */
     public function fetchRepoInfo($url): array
     {
         if (!$this->isUrlValid($url)) {
-            throw new \Exception('Invalid URL');
+            throw new Exception('Invalid URL');
         }
 
-        [$owner, $repo] = $this->parseUrl($url);
+        $cacheKey = md5($url);
 
-        $basicInfo = $this->fetchRepoBasicInfo($owner, $repo);
-        $languages = $this->fetchRepoLanguages($owner, $repo);
-        $lastCommits = $this->fetchRepoLastCommits($owner, $repo);
-        $lastContributors = $this->fetchRepoLastContributors($owner, $repo);
+        return Cache::remember($cacheKey, now()->addHour(1), function () use ($url) {
+            [$owner, $repo] = $this->parseUrl($url);
 
-        return [
-            'name' => $basicInfo['name'],
-            'description' => $basicInfo['description'],
-            'languages' => $languages,
-            'owner_avatar_url' => $basicInfo['owner']['avatar_url'],
-            'commits' => $lastCommits,
-            'contributors' => $lastContributors,
-        ];
+            $basicInfo = $this->fetchRepoBasicInfo($owner, $repo);
+            $languages = $this->fetchRepoLanguages($owner, $repo);
+            $lastCommits = $this->fetchRepoLastCommits($owner, $repo);
+            $lastContributors = $this->fetchRepoLastContributors($owner, $repo);
+
+            return [
+                'name' => $basicInfo['name'],
+                'description' => $basicInfo['description'],
+                'stargazers_count' => $basicInfo['stargazers_count'],
+                'languages' => $languages,
+                'owner_avatar_url' => $basicInfo['owner']['avatar_url'],
+                'commits' => $lastCommits,
+                'contributors' => $lastContributors,
+            ];
+        });
     }
 
     /**

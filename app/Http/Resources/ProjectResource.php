@@ -27,6 +27,9 @@ class ProjectResource extends JsonResource
             'status' => $this->status,
             'repository_owner' => $this->repository_owner,
             'repository_name' => $this->repository_name,
+
+            'tags' => TagResource::collection($this->whenLoaded('tags')),
+            'technologies' => TechnologyResource::collection($this->whenLoaded('technologies')),
         ];
     }
 }

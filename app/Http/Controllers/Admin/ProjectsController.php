@@ -25,7 +25,7 @@ class ProjectsController extends Controller
     public function show(Request $request, string $id): ProjectResource
     {
         return ProjectResource::make(
-            $this->service->get($id)
+            $this->service->get($id)->load('tags', 'technologies')
         );
     }
 

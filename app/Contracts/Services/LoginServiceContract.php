@@ -11,5 +11,9 @@ interface LoginServiceContract
 
     public function loginAdmin(Request $request): array;
 
+    public function getGithubOauthURI(Request $request): string;
+
+    public function githubAuthCallback(Request $request);
+
     public function logout(): void;
 }

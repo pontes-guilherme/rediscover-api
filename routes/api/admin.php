@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\Auth\LoginController;
+use App\Http\Controllers\Admin\ProjectsController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
@@ -9,5 +10,9 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
-
+    Route::prefix('projects')->group(function () {
+        Route::get('', [ProjectsController::class, 'index']);
+        Route::get('{id}', [ProjectsController::class, 'show']);
+        Route::delete('{id}', [ProjectsController::class, 'destroy']);
+    });
 });

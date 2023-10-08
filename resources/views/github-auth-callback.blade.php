@@ -5,7 +5,12 @@
     <title>Callback</title>
     <script>
         window.opener.postMessage({token: "{{ $token }}"}, "{{ env('FRONTEND_URL') }}");
-        window.close();
+
+        @if(!env('APP_DEBUG'))
+            window.close();
+        @else
+            console.log("{{ $token }}")
+        @endif
     </script>
 </head>
 <body>

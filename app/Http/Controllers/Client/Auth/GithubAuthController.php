@@ -39,7 +39,9 @@ class GithubAuthController extends BaseController
                 'token' => $token,
             ]);
         } catch (Exception $e) {
-            return view('github-error-callback');
+            return view('github-error-callback', [
+                'message' => $e->getMessage(),
+            ]);
         }
     }
 

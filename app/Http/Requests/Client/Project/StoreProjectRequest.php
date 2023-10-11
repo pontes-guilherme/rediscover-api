@@ -24,7 +24,6 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             'repository_id' => ['required', 'int', 'unique:projects,repository_id'],
-            'name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'repository_url' => ['required', 'string', 'max:255'],
             'abandonment_reason' => ['required', 'string'],

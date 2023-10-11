@@ -25,6 +25,11 @@ class ProjectService implements ProjectServiceContract
         return $query->get();
     }
 
+    public function fetch(): Collection
+    {
+        return Project::with('tags', 'technologies')->get();
+    }
+
     public function get(int $id): Project
     {
         return Project::findOrFail($id);

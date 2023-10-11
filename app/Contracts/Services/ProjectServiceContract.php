@@ -10,6 +10,8 @@ interface ProjectServiceContract
 {
     public function fetchWithQueryBuilder(bool $paginate = true): LengthAwarePaginator|Collection;
 
+    public function fetch(): Collection;
+
     public function get(int $id): Project;
 
     public function store(array $data): Project;

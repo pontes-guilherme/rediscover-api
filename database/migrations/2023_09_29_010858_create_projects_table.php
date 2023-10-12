@@ -17,7 +17,6 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->nullable(true);
             $table->foreign('user_id')->references('id')->on('users');
 
-            $table->string('name');
             $table->text('description');
             $table->string('repository_url');
             $table->string('repository_id');

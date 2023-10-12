@@ -27,6 +27,8 @@ Route::prefix('tags')->group(function () {
 });
 
 Route::prefix('projects')->group(function () {
+    Route::get('', [ProjectsController::class, 'index']);
+    Route::get('{id}', [ProjectsController::class, 'show']);
     Route::post('', [ProjectsController::class, 'store']);
 });
 
